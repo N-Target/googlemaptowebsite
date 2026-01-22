@@ -75,6 +75,13 @@ DATABASE_URL=sqlite:///./googlemaptowebsite.db
 DEFAULT_LANGUAGE=hu
 ```
 
+### Adatbázis Inicializálás / Database Initialization
+
+```bash
+# Adatbázis táblák létrehozása
+python init_db.py
+```
+
 ### Indítás / Running
 
 ```bash

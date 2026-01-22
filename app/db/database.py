@@ -19,6 +19,8 @@ Base = declarative_base()
 
 async def init_db():
     """Initialize database tables"""
+    # Import all models to ensure they're registered with Base
+    from app.models import models
     Base.metadata.create_all(bind=engine)
 
 

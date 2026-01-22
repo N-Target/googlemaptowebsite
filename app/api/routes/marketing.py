@@ -107,7 +107,7 @@ async def send_campaign(
             lead_id=lead.id,
             activity_type=f'campaign_{campaign.campaign_type}',
             description=f'Received campaign: {campaign.name}',
-            metadata={
+            activity_metadata={
                 'campaign_id': campaign.id,
                 'campaign_name': campaign.name,
                 'campaign_type': campaign.campaign_type
@@ -180,7 +180,7 @@ async def track_email_open(
             lead_id=lead_id,
             activity_type='email_opened',
             description=f'Opened email from campaign: {campaign.name}',
-            metadata={'campaign_id': campaign_id}
+            activity_metadata={'campaign_id': campaign_id}
         )
         db.add(activity)
         db.commit()
@@ -204,7 +204,7 @@ async def track_email_click(
             lead_id=lead_id,
             activity_type='email_clicked',
             description=f'Clicked link in campaign: {campaign.name}',
-            metadata={'campaign_id': campaign_id}
+            activity_metadata={'campaign_id': campaign_id}
         )
         db.add(activity)
         db.commit()

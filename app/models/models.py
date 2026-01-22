@@ -111,7 +111,7 @@ class LeadActivity(Base):
     # Activity details
     activity_type = Column(String(50), nullable=False)  # email_sent, page_view, form_submit, etc.
     description = Column(Text)
-    metadata = Column(JSON)
+    activity_metadata = Column(JSON)  # Changed from 'metadata' to 'activity_metadata'
     
     # Timestamp
     created_at = Column(DateTime, default=datetime.utcnow)

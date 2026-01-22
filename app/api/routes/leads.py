@@ -43,7 +43,7 @@ async def create_lead(
         lead_id=db_lead.id,
         activity_type='lead_created',
         description=f'Lead created from {lead.source}',
-        metadata={'source': lead.source}
+        activity_metadata={'source': lead.source}
     )
     db.add(activity)
     db.commit()
@@ -112,7 +112,7 @@ async def update_lead(
             lead_id=lead.id,
             activity_type='status_changed',
             description=f'Status changed from {old_status} to {lead_update.status}',
-            metadata={'old_status': old_status, 'new_status': lead_update.status}
+            activity_metadata={'old_status': old_status, 'new_status': lead_update.status}
         )
         db.add(activity)
     

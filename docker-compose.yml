@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: googlemaptowebsite-mongodb
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_DATABASE=googlemaptowebsite
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  app:
+    build: .
+    container_name: googlemaptowebsite-app
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    networks:
+      - app-network
+    command: npm start
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

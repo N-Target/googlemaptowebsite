@@ -126,8 +126,9 @@ Reply in JSON format: {{"html": "...", "css": "...", "seo_title": "...", "seo_de
                 "seo_title": data.get("seo_title", business_data.get('name', '')),
                 "seo_description": data.get("seo_description", "")
             }
-        except:
-            # Fallback parsing
+        except (json.JSONDecodeError, KeyError, TypeError) as e:
+            # Fallback parsing if JSON parsing fails
+            print(f"Failed to parse AI response as JSON: {e}")
             return self._generate_fallback_content(business_data, "hu")
     
     def _generate_fallback_content(self, business_data: Dict[str, Any], language: str) -> Dict[str, str]:

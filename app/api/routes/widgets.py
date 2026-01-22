@@ -120,7 +120,7 @@ async def get_available_widget_types():
             {
                 "type": "contact_form",
                 "name": "Kapcsolati Űrlap",
-                "description": "Email-integráció ű kapcsolati űrlap",
+                "description": "Email-integráció kapcsolati űrlappal",
                 "configuration": {
                     "fields": ["name", "email", "phone", "message"],
                     "email_notification": True

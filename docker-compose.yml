@@ -33,7 +33,7 @@ services:
 
   celery:
     build: .
-    command: celery -A app.tasks worker --loglevel=info
+    command: echo "Celery worker disabled - uncomment and configure app.tasks when implementing background jobs"
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/googlemaptowebsite
       - REDIS_URL=redis://redis:6379/0
@@ -42,7 +42,7 @@ services:
     depends_on:
       - db
       - redis
-    restart: unless-stopped
+    restart: "no"
 
 volumes:
   postgres_data:

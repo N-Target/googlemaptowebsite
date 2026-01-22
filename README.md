@@ -185,6 +185,40 @@ curl -X POST "http://localhost:8000/api/v1/marketing/campaigns" \
 
 ## Deployment (EU/Hungary)
 
+### Hostinger Deployment (magyar-ai.com)
+
+**Részletes útmutató**: Lásd [HOSTINGER_DEPLOYMENT.md](HOSTINGER_DEPLOYMENT.md)
+
+Gyors lépések:
+```bash
+# 1. SSH kapcsolat
+ssh username@magyar-ai.com
+
+# 2. Navigálj a domain könyvtárába
+cd ~/public_html/magyar-ai.com
+
+# 3. Virtual environment létrehozása
+python3.11 -m venv ~/virtualenv/googlemaptowebsite/3.11
+source ~/virtualenv/googlemaptowebsite/3.11/bin/activate
+
+# 4. Függőségek telepítése
+pip install -r requirements.txt
+
+# 5. Konfiguráció
+cp .env.example .env
+nano .env  # Szerkeszd az API kulcsokkal
+
+# 6. Adatbázis inicializálás
+python init_db.py
+
+# 7. .htaccess és passenger_wsgi.py frissítése a felhasználóneveddel
+
+# 8. Újraindítás
+mkdir -p tmp && touch tmp/restart.txt
+```
+
+**503 hiba megoldása**: Ellenőrizd a `passenger_wsgi.py` és `.htaccess` fájlokban a felhasználónevet és útvonalakat.
+
 ### Docker Deployment
 
 ```dockerfile
@@ -210,6 +244,8 @@ docker run -p 8000:8000 --env-file .env googlemaptowebsite
 ### Gyors Deployment Konfiguráció
 
 A rendszer rövid ciklusidővel működik:
+- Hostinger shared hosting támogatás
+- Docker/Kubernetes deployment
 - Automatikus CI/CD pipeline
 - Környezeti változók alapú konfiguráció
 - Zero-downtime deployment

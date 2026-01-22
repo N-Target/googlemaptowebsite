@@ -1,0 +1,45 @@
+# .htaccess for Hostinger Passenger deployment
+
+# Enable Passenger
+PassengerEnabled on
+
+# Application root directory (update with your actual path)
+PassengerAppRoot /home/username/public_html/magyar-ai.com
+
+# Base URI
+PassengerBaseURI /
+
+# Application type
+PassengerAppType wsgi
+
+# Startup file
+PassengerStartupFile passenger_wsgi.py
+
+# Python interpreter path (update with your actual username)
+PassengerPython /home/username/virtualenv/googlemaptowebsite/3.11/bin/python
+
+# Python version (optional, forces specific version)
+PassengerPythonVersion 3.11
+
+# Environment (set to production)
+SetEnv APP_ENV production
+
+# Error handling
+ErrorDocument 503 /503.html
+
+# Passenger options
+PassengerMinInstances 1
+PassengerMaxPoolSize 2
+PassengerPoolIdleTime 300
+PassengerMaxRequests 1000
+
+# Force HTTPS (optional, uncomment if you want to force HTTPS)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# INSTRUCTIONS:
+# 1. Replace 'username' with your actual Hostinger username
+# 2. Verify the path matches your actual directory structure
+# 3. If using a different Python version, update accordingly
+# 4. Upload this file to your domain root directory

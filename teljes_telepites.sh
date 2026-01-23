@@ -95,7 +95,7 @@ check_system_health() {
     
     # Check 4: Disk space
     print_step "4/6" "Lemezterület ellenőrzése..."
-    local available_space=$(df -h . | awk 'NR==2 {print $4}')
+    local available_space=$(df -h . | tail -n 1 | awk '{print $4}')
     print_success "Elérhető lemezterület: $available_space"
     
     # Check 5: Required files
@@ -155,8 +155,9 @@ configure_deployment() {
     # Configure .htaccess
     print_step "1/2" ".htaccess konfigurálása..."
     if [ -f ".htaccess" ]; then
-        # Create backup
-        cp .htaccess .htaccess.backup 2>/dev/null || true
+        # Create backup with timestamp
+        BACKUP_TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        cp .htaccess ".htaccess.backup.$BACKUP_TIMESTAMP" 2>/dev/null || true
         
         # Replace username placeholder
         sed -i "s|/home/username/|$HOME_DIR/|g" .htaccess
@@ -169,8 +170,9 @@ configure_deployment() {
     # Configure passenger_wsgi.py
     print_step "2/2" "passenger_wsgi.py konfigurálása..."
     if [ -f "passenger_wsgi.py" ]; then
-        # Create backup
-        cp passenger_wsgi.py passenger_wsgi.py.backup 2>/dev/null || true
+        # Create backup with timestamp
+        BACKUP_TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        cp passenger_wsgi.py "passenger_wsgi.py.backup.$BACKUP_TIMESTAMP" 2>/dev/null || true
         
         # Replace username placeholder
         sed -i "s|/home/username/|$HOME_DIR/|g" passenger_wsgi.py
@@ -263,6 +265,18 @@ setup_database() {
     
     print_step "1/2" "Adatbázis ellenőrzése..."
     
+    # Determine Python command
+    if [ -n "$(type -t python)" ]; then
+        PYTHON_CMD="python"
+    elif command -v python3.11 &> /dev/null; then
+        PYTHON_CMD="python3.11"
+    elif command -v python3 &> /dev/null; then
+        PYTHON_CMD="python3"
+    else
+        print_error "Python nem található!"
+        return 1
+    fi
+    
     if [ -f "app.db" ]; then
         print_success "Adatbázis megtalálható (app.db)"
         
@@ -273,7 +287,7 @@ setup_database() {
         print_warning "Adatbázis nem található, létrehozom..."
         
         print_step "2/2" "Adatbázis inicializálása..."
-        if python init_db.py; then
+        if $PYTHON_CMD init_db.py; then
             print_success "Adatbázis sikeresen inicializálva!"
         else
             print_error "Adatbázis inicializálás sikertelen!"

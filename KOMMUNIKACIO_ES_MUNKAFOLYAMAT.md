@@ -377,6 +377,9 @@ git push origin copilot/add-ai-web-generator
 - Ne menj VS Code-ba projekt kérdésekkel
 - Maradj ezen a PR-en minden project változtatáshoz
 
+**GitHub PR URL**: https://github.com/N-Target/googlemaptowebsite/pull/1
+_(Cseréld az 1-et a valódi PR számra ha más)_
+
 ### 🚀 Következő Lépések
 
 1. **Most SSH-zz be** a Hostinger szerverre

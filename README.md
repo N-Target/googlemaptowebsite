@@ -279,13 +279,8 @@ bash teljes_telepites.sh restart
 - 🇭🇺 **[KOMMUNIKACIO_ES_MUNKAFOLYAMAT.md](KOMMUNIKACIO_ES_MUNKAFOLYAMAT.md)** - Teljes munkafolyamat és kommunikáció
 - 🇭🇺 **[FRISSITES_UTMUTATO.md](FRISSITES_UTMUTATO.md)** - Frissítési útmutató
 - 🇭🇺 **[RENDSZER_ATTEKINTES.md](RENDSZER_ATTEKINTES.md)** - Rendszer áttekintés
-cd ~/public_html/magyar-ai.com
-bash deploy_update.sh
-```
 
-**Részletes útmutató**: [FRISSITES_UTMUTATO.md](FRISSITES_UTMUTATO.md)
-
-**503 hiba?** Futtasd: `python diagnose.py` vagy lásd [FIX_503_ERROR.md](FIX_503_ERROR.md)
+**503 hiba?** Futtasd: `bash teljes_telepites.sh health` vagy lásd [FIX_503_ERROR.md](FIX_503_ERROR.md)
 
 ### Docker Deployment
 

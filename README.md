@@ -33,9 +33,23 @@ AI-alapú automatizált weboldal-generáló és lead-szerző rendszer, amely Goo
 - Kampány követés (megnyitások, kattintások)
 - Analitika dashboard
 
+## 🎨 Admin Dashboard
+
+Modern admin felület a teljes rendszer kezeléséhez:
+
+- **📊 Dashboard** - Élő statisztikák és recent activity
+- **⚙️ API Settings** - API kulcsok kezelése UI-ban (nem kódban!)
+- **🤖 Prompt Editor** - AI prompt sablonok szerkesztése
+- **🧪 Test & Preview** - Azonnali weboldal generálás tesztelése
+- **🌐 Websites & Leads** - Menedzsment nézetek
+
+**Elérés:** `http://localhost:8000/admin` vagy `https://magyar-ai.com/admin`
+
 ## Gyors Kezdés / Quick Start
 
-### Előfeltételek / Prerequisites
+### Helyi Fejlesztés / Local Development
+
+#### Előfeltételek / Prerequisites
 
 ```bash
 # Python 3.9+
@@ -185,39 +199,68 @@ curl -X POST "http://localhost:8000/api/v1/marketing/campaigns" \
 
 ## Deployment (EU/Hungary)
 
-### Hostinger Deployment (magyar-ai.com)
+### 🚀 Hostinger Deployment (magyar-ai.com)
 
-**Részletes útmutató**: Lásd [HOSTINGER_DEPLOYMENT.md](HOSTINGER_DEPLOYMENT.md)
+**FONTOS**: A kód GitHubon van, de **manuálisan kell telepítened** a Hostinger szerverre!
 
-Gyors lépések:
+#### Első Telepítés
+
+**Részletes útmutató**: Lásd [HOSTINGER_DEPLOYMENT.md](HOSTINGER_DEPLOYMENT.md) vagy [GYORS_TELEPITES.md](GYORS_TELEPITES.md)
+
 ```bash
 # 1. SSH kapcsolat
-ssh username@magyar-ai.com
+ssh username@your_server
 
 # 2. Navigálj a domain könyvtárába
 cd ~/public_html/magyar-ai.com
 
-# 3. Virtual environment létrehozása
-python3.11 -m venv ~/virtualenv/googlemaptowebsite/3.11
-source ~/virtualenv/googlemaptowebsite/3.11/bin/activate
+# 3. Clone repository (ha még nincs)
+git clone https://github.com/N-Target/googlemaptowebsite.git .
+git checkout copilot/add-ai-web-generator
 
-# 4. Függőségek telepítése
-pip install -r requirements.txt
+# 4. Automatikus konfiguráció (beállítja a username-t!)
+bash configure_hostinger.sh
 
-# 5. Konfiguráció
-cp .env.example .env
-nano .env  # Szerkeszd az API kulcsokkal
-
-# 6. Adatbázis inicializálás
-python init_db.py
-
-# 7. .htaccess és passenger_wsgi.py frissítése a felhasználóneveddel
-
-# 8. Újraindítás
-mkdir -p tmp && touch tmp/restart.txt
+# 5. Követd a script utasításait
 ```
 
-**503 hiba megoldása**: Ellenőrizd a `passenger_wsgi.py` és `.htaccess` fájlokban a felhasználónevet és útvonalakat.
+#### ⚡ Gyors Frissítés (Már Telepített Rendszer)
+
+**Ha már telepítve van és csak frissíteni szeretnéd:**
+
+```bash
+cd ~/public_html/magyar-ai.com
+bash deploy_update.sh
+```
+
+**Ennyi!** Ez a parancs automatikusan:
+1. Lehúzza a legújabb kódot GitHubról
+2. Frissíti a függőségeket
+3. Ellenőrzi az adatbázist
+4. Újraindítja az alkalmazást
+
+Várd meg 10-15 másodpercet → `https://magyar-ai.com/admin`
+
+#### 🔄 Fejlesztési Munkafolyamat
+
+**Lokális gépen:**
+```bash
+# 1. Végezd el a módosításokat
+git add .
+git commit -m "Leírás"
+git push origin copilot/add-ai-web-generator
+```
+
+**Hostinger szerveren:**
+```bash
+# 2. Egyetlen parancs a frissítéshez!
+cd ~/public_html/magyar-ai.com
+bash deploy_update.sh
+```
+
+**Részletes útmutató**: [FRISSITES_UTMUTATO.md](FRISSITES_UTMUTATO.md)
+
+**503 hiba?** Futtasd: `python diagnose.py` vagy lásd [FIX_503_ERROR.md](FIX_503_ERROR.md)
 
 ### Docker Deployment
 

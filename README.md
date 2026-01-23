@@ -224,22 +224,36 @@ bash configure_hostinger.sh
 # 5. Követd a script utasításait
 ```
 
-#### ⚡ Gyors Frissítés (Már Telepített Rendszer)
+#### ⚡ Teljes Frissítés - Egy Parancs! (Ajánlott ✨)
 
-**Ha már telepítve van és csak frissíteni szeretnéd:**
+**Az ÚJ all-in-one script mindent csinál automatikusan:**
 
 ```bash
 cd ~/public_html/magyar-ai.com
-bash deploy_update.sh
+bash teljes_telepites.sh
 ```
 
-**Ennyi!** Ez a parancs automatikusan:
-1. Lehúzza a legújabb kódot GitHubról
-2. Frissíti a függőségeket
-3. Ellenőrzi az adatbázist
-4. Újraindítja az alkalmazást
+**Ez a script mindent megcsinál:**
+1. ✅ Pre-deployment health check (rendszer, internet, Python, disk)
+2. ✅ Konfiguráció (username, paths auto-detect)
+3. ✅ Git pull (legújabb kód GitHub-ról)
+4. ✅ Virtual environment beállítás
+5. ✅ Függőségek telepítése
+6. ✅ Adatbázis inicializálás/ellenőrzés
+7. ✅ .env fájl ellenőrzés
+8. ✅ Passenger újraindítás
+9. ✅ Post-deployment verification
 
-Várd meg 10-15 másodpercet → `https://magyar-ai.com/admin`
+**Változtatások élőben 1-2 perc múlva!** ⚡
+
+#### 🚀 Gyors Újraindítás (Kis Változtatásokhoz)
+
+```bash
+cd ~/public_html/magyar-ai.com
+bash teljes_telepites.sh restart
+```
+
+**Frissítés 10-15 másodperc múlva!** ⚡⚡⚡
 
 #### 🔄 Fejlesztési Munkafolyamat
 
@@ -253,7 +267,18 @@ git push origin copilot/add-ai-web-generator
 
 **Hostinger szerveren:**
 ```bash
-# 2. Egyetlen parancs a frissítéshez!
+# 2. Teljes frissítés (ajánlott)
+cd ~/public_html/magyar-ai.com
+bash teljes_telepites.sh
+
+# VAGY gyors restart (ha nincs új dependency)
+bash teljes_telepites.sh restart
+```
+
+**További dokumentáció**:
+- 🇭🇺 **[KOMMUNIKACIO_ES_MUNKAFOLYAMAT.md](KOMMUNIKACIO_ES_MUNKAFOLYAMAT.md)** - Teljes munkafolyamat és kommunikáció
+- 🇭🇺 **[FRISSITES_UTMUTATO.md](FRISSITES_UTMUTATO.md)** - Frissítési útmutató
+- 🇭🇺 **[RENDSZER_ATTEKINTES.md](RENDSZER_ATTEKINTES.md)** - Rendszer áttekintés
 cd ~/public_html/magyar-ai.com
 bash deploy_update.sh
 ```

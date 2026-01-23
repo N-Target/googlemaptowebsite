@@ -150,3 +150,45 @@ class MarketingCampaign(Base):
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class AppSettings(Base):
+    """Model for storing application settings and API keys"""
+    __tablename__ = "app_settings"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    
+    # Setting key-value
+    key = Column(String(100), unique=True, nullable=False, index=True)
+    value = Column(Text)
+    category = Column(String(50))  # api_keys, prompts, general
+    description = Column(Text)
+    is_secret = Column(Boolean, default=False)  # For API keys and sensitive data
+    
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class AIPromptTemplate(Base):
+    """Model for storing AI prompt templates for website generation"""
+    __tablename__ = "ai_prompt_templates"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    
+    # Template details
+    name = Column(String(255), nullable=False)
+    language = Column(String(5), default="hu")
+    prompt_type = Column(String(50))  # system, generation, fallback
+    
+    # Prompt content
+    prompt_text = Column(Text, nullable=False)
+    variables = Column(JSON)  # Variables that can be used in the prompt
+    
+    # Settings
+    is_active = Column(Boolean, default=True)
+    is_default = Column(Boolean, default=False)
+    
+    # Timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

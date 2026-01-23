@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
 
-from app.api.routes import website_generator, leads, widgets, marketing
+from app.api.routes import website_generator, leads, widgets, marketing, admin
 from app.core.config import settings
 from app.db.database import init_db
 
@@ -44,21 +44,26 @@ app.include_router(website_generator.router, prefix="/api/v1/generator", tags=["
 app.include_router(leads.router, prefix="/api/v1/leads", tags=["Lead Management"])
 app.include_router(widgets.router, prefix="/api/v1/widgets", tags=["Interactive Widgets"])
 app.include_router(marketing.router, prefix="/api/v1/marketing", tags=["Marketing Automation"])
+app.include_router(admin.router, prefix="/api/v1/admin", tags=["Admin"])
 
 # Static files for generated websites
 os.makedirs("static/generated", exist_ok=True)
+os.makedirs("static/admin", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
 async def root():
-    """Root endpoint"""
-    return {
-        "message": "Google Map to Website - AI Generator API",
-        "version": "1.0.0",
-        "docs": "/docs",
-        "supported_languages": settings.SUPPORTED_LANGUAGES
-    }
+    """Root endpoint - redirect to admin"""
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url="/admin")
+
+
+@app.get("/admin")
+async def admin_panel():
+    """Serve admin panel"""
+    from fastapi.responses import FileResponse
+    return FileResponse("static/admin/index.html")
 
 
 @app.get("/health")

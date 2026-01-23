@@ -4,6 +4,7 @@ Google Maps and Places API integration service
 import googlemaps
 from typing import Optional, Dict, Any
 from app.core.config import settings
+from app.core.settings_helper import get_api_key
 
 
 class GoogleMapsService:
@@ -11,8 +12,10 @@ class GoogleMapsService:
     
     def __init__(self):
         self.client = None
-        if settings.GOOGLE_MAPS_API_KEY:
-            self.client = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
+        # Try to get API key from database first, fallback to env
+        api_key = get_api_key('GOOGLE_MAPS_API_KEY') or settings.GOOGLE_MAPS_API_KEY
+        if api_key:
+            self.client = googlemaps.Client(key=api_key)
     
     async def search_place(self, query: str) -> Optional[Dict[str, Any]]:
         """

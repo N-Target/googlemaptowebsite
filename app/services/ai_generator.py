@@ -4,6 +4,7 @@ AI-powered website generation service using OpenAI
 from typing import Dict, Any, Optional
 from openai import OpenAI
 from app.core.config import settings
+from app.core.settings_helper import get_api_key, get_active_prompt
 import json
 
 
@@ -12,8 +13,10 @@ class AIWebsiteGenerator:
     
     def __init__(self):
         self.client = None
-        if settings.OPENAI_API_KEY:
-            self.client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        # Try to get API key from database first, fallback to env
+        api_key = get_api_key('OPENAI_API_KEY') or settings.OPENAI_API_KEY
+        if api_key:
+            self.client = OpenAI(api_key=api_key)
     
     async def generate_website_content(
         self,
@@ -55,7 +58,13 @@ class AIWebsiteGenerator:
             return self._generate_fallback_content(business_data, language)
     
     def _get_system_prompt(self, language: str) -> str:
-        """Get system prompt based on language"""
+        """Get system prompt based on language - check database first"""
+        # Try to get from database
+        db_prompt = get_active_prompt(language, "system")
+        if db_prompt:
+            return db_prompt
+        
+        # Fallback to hardcoded prompts
         prompts = {
             "hu": """Te egy szakértő weboldal-fejlesztő vagy, aki modern, reszponzív és SEO-optimalizált 
             weboldalakat készítesz kis- és középvállalkozások számára. Készíts professzionális, egyszerű 
@@ -73,12 +82,24 @@ class AIWebsiteGenerator:
         return prompts.get(language, prompts["en"])
     
     def _build_generation_prompt(self, business_data: Dict[str, Any], language: str) -> str:
-        """Build prompt for website generation"""
+        """Build prompt for website generation - check database first"""
         business_name = business_data.get('name', 'Business')
         address = business_data.get('address', '')
         phone = business_data.get('phone', '')
         business_type = business_data.get('business_type', 'business')
         
+        # Try to get custom prompt from database
+        db_prompt = get_active_prompt(language, "generation")
+        if db_prompt:
+            # Replace variables in the prompt
+            return db_prompt.format(
+                business_name=business_name,
+                address=address,
+                phone=phone,
+                business_type=business_type
+            )
+        
+        # Fallback to hardcoded prompts
         prompts = {
             "hu": f"""Készíts egy egyszerű, modern weboldalat a következő vállalkozás számára:
 

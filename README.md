@@ -282,6 +282,37 @@ bash teljes_telepites.sh restart
 
 **503 hiba?** Futtasd: `bash teljes_telepites.sh health` vagy lásd [FIX_503_ERROR.md](FIX_503_ERROR.md)
 
+### ☁️ Vercel Deployment (Serverless)
+
+**Az alkalmazás most már Vercel-re is telepíthető!**
+
+#### Gyors Telepítés / Quick Deploy
+
+1. **Import projekt Vercel-be** → [vercel.com/new](https://vercel.com/new)
+2. **Válaszd a repository-t**: `N-Target/googlemaptowebsite`
+3. **Környezeti változók beállítása** (Vercel dashboard):
+   ```
+   DATABASE_URL=<postgresql-connection-string>
+   OPENAI_API_KEY=<your-key>
+   GOOGLE_MAPS_API_KEY=<your-key>
+   GOOGLE_PLACES_API_KEY=<your-key>
+   APP_ENV=production
+   ```
+4. **Deploy** → 2-3 perc múlva kész!
+
+**Elérés**: `https://your-project.vercel.app/admin`
+
+**Részletes útmutató**: [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
+
+**Előnyök**:
+- ✅ Automatikus HTTPS
+- ✅ Global CDN
+- ✅ Azonnali deployment GitHub push-ból
+- ✅ Ingyenes SSL
+- ✅ Nincs szerver adminisztráció
+
+**Fontos**: Vercel-hez PostgreSQL adatbázis szükséges (Vercel Postgres, Supabase, vagy Neon ajánlott)
+
 ### Docker Deployment
 
 ```dockerfile

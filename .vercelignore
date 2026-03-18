@@ -1,0 +1,56 @@
+# Vercel ignore file - exclude files not needed for deployment
+
+# Local development
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+*.db
+*.sqlite
+*.sqlite3
+
+# Documentation (too large for serverless)
+*.md
+!README.md
+
+# Deployment configs for other platforms
+.htaccess
+passenger_wsgi.py
+configure_hostinger.sh
+deploy_update.sh
+teljes_telepites.sh
+start.sh
+diagnose.py
+503.html
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tests
+tests/
+test_*.py
+*_test.py
+
+# Backup files
+*.backup.*

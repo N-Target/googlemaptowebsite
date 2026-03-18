@@ -284,13 +284,18 @@ bash teljes_telepites.sh restart
 
 ### ☁️ Vercel Deployment (Serverless)
 
-**Az alkalmazás most már Vercel-re is telepíthető!**
+**Az alkalmazás most már Vercel-re is telepíthető!** ✅
+
+⚠️ **FONTOS FRISSÍTÉS**: A Vercel deployment konfiguráció javítva! Nincs több "Secret does not exist" hiba!
 
 #### Gyors Telepítés / Quick Deploy
 
 1. **Import projekt Vercel-be** → [vercel.com/new](https://vercel.com/new)
 2. **Válaszd a repository-t**: `N-Target/googlemaptowebsite`
-3. **Környezeti változók beállítása** (Vercel dashboard):
+3. **Környezeti változók beállítása** a Vercel Dashboard-on (Settings → Environment Variables):
+   
+   ⚠️ **NE a vercel.json-ban, hanem a Dashboard-on állítsd be!**
+   
    ```
    DATABASE_URL=<postgresql-connection-string>
    OPENAI_API_KEY=<your-key>
@@ -302,7 +307,10 @@ bash teljes_telepites.sh restart
 
 **Elérés**: `https://your-project.vercel.app/admin`
 
-**Részletes útmutató**: [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
+**Dokumentáció**:
+- 📘 **Angol**: [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
+- 📗 **Magyar**: [VERCEL_JAVITAS_MAGYAR.md](VERCEL_JAVITAS_MAGYAR.md)
+- 🔧 **Hibaelhárítás**: [VERCEL_FIX_SUMMARY.md](VERCEL_FIX_SUMMARY.md)
 
 **Előnyök**:
 - ✅ Automatikus HTTPS
@@ -310,8 +318,12 @@ bash teljes_telepites.sh restart
 - ✅ Azonnali deployment GitHub push-ból
 - ✅ Ingyenes SSL
 - ✅ Nincs szerver adminisztráció
+- ✅ Működő konfiguráció (javított!)
 
-**Fontos**: Vercel-hez PostgreSQL adatbázis szükséges (Vercel Postgres, Supabase, vagy Neon ajánlott)
+**Adatbázis**: Vercel-hez PostgreSQL szükséges:
+- **Vercel Postgres** (ajánlott, beépített)
+- **Supabase** (ingyenes tier)
+- **Neon** (serverless PostgreSQL)
 
 ### Docker Deployment
 

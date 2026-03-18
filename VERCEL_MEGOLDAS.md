@@ -25,6 +25,8 @@ The Vercel "No flask entrypoint found" error is **fixed**! The application can n
 ```
 **Mit csinál?** Megmondja Vercel-nek, hogy FastAPI alkalmazást használunk, nem Flask-ot.
 
+**FONTOS:** A környezeti változókat (pl. DATABASE_URL) a Vercel Dashboard-on állítsd be, NEM ebben a fájlban!
+
 #### ✅ `api/index.py` (Vercel belépési pont)
 ```python
 from main import app
@@ -48,13 +50,18 @@ Hozzáadtam Vercel deployment szekciót.
 
 1. **Menj ide:** https://vercel.com/new
 2. **Válaszd:** `N-Target/googlemaptowebsite` repository
-3. **Állítsd be** az environment változókat:
+3. **Állítsd be** az environment változókat a Vercel Dashboard-on:
+   
+   ⚠️ **FONTOS:** Settings → Environment Variables menüben!
+   
    ```
    DATABASE_URL=postgresql://...
    OPENAI_API_KEY=sk-...
    GOOGLE_MAPS_API_KEY=AIza...
    GOOGLE_PLACES_API_KEY=AIza...
    ```
+   
+   **NE** írd ezeket a `vercel.json` fájlba!
 4. **Kattints** a "Deploy" gombra
 5. **Várakozz** 2-3 percet
 6. **Kész!** 🎉

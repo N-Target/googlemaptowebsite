@@ -15,10 +15,5 @@
       "src": "/(.*)",
       "dest": "/api/index.py"
     }
-  ],
-  "env": {
-    "APP_ENV": "production",
-    "APP_NAME": "Magyar AI Website Generator",
-    "DATABASE_URL": "@database_url"
-  }
+  ]
 }

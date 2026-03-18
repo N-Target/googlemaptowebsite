@@ -18,7 +18,13 @@ This application is now configured for Vercel deployment! Follow these steps:
    - Click "Import"
 
 2. **Configure Environment Variables:**
-   In Vercel dashboard, add these environment variables:
+   
+   ⚠️ **IMPORTANT:** Set environment variables in the Vercel Dashboard, NOT in `vercel.json`
+   
+   Go to your project settings in Vercel:
+   - Navigate to: Settings → Environment Variables
+   - Add the following variables:
+   
    ```
    DATABASE_URL=<your-postgresql-connection-string>
    OPENAI_API_KEY=<your-openai-key>
@@ -26,6 +32,9 @@ This application is now configured for Vercel deployment! Follow these steps:
    GOOGLE_PLACES_API_KEY=<your-google-places-key>
    APP_ENV=production
    ```
+   
+   **Note:** Do NOT use Vercel Secrets syntax (like `@database_url`) in vercel.json. 
+   All environment variables should be set directly in the Vercel dashboard.
 
 3. **Deploy:**
    - Click "Deploy"
@@ -69,7 +78,13 @@ Ez az alkalmazás most már Vercel telepítésre konfigurálva van! Kövesd ezek
    - Kattints az "Import" gombra
 
 2. **Környezeti Változók Beállítása:**
-   A Vercel dashboard-on add hozzá ezeket a környezeti változókat:
+   
+   ⚠️ **FONTOS:** A környezeti változókat a Vercel Dashboard-on állítsd be, NEM a `vercel.json` fájlban!
+   
+   Menj a projekt beállításokhoz Vercel-ben:
+   - Navigálj ide: Settings → Environment Variables
+   - Add hozzá a következő változókat:
+   
    ```
    DATABASE_URL=<postgresql-kapcsolat-string>
    OPENAI_API_KEY=<openai-kulcs>
@@ -77,6 +92,9 @@ Ez az alkalmazás most már Vercel telepítésre konfigurálva van! Kövesd ezek
    GOOGLE_PLACES_API_KEY=<google-places-kulcs>
    APP_ENV=production
    ```
+   
+   **Megjegyzés:** NE használd a Vercel Secrets szintaxist (mint `@database_url`) a vercel.json-ban.
+   Minden környezeti változót közvetlenül a Vercel dashboard-on állíts be.
 
 3. **Telepítés:**
    - Kattints a "Deploy" gombra
@@ -115,6 +133,9 @@ Vercel telepítéshez PostgreSQL adatbázist használj:
 ✅ Supports both SQLite (dev) and PostgreSQL (production)
 
 ### Troubleshooting / Hibaelhárítás
+
+**Problem:** Deployment fails with "Environment Variable 'DATABASE_URL' references Secret 'database_url', which does not exist"
+**Solution:** Remove the `env` section from `vercel.json` and set all environment variables in the Vercel dashboard under Settings → Environment Variables. Do NOT use the `@secret_name` syntax in vercel.json.
 
 **Problem:** Build fails with "No flask entrypoint found"
 **Solution:** Make sure `api/index.py` exists and imports from `main.py`
